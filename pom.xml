@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>org.jasig.portal.overlay.dev</groupId>
+        <artifactId>portlet-overlays</artifactId>
+        <version>1</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>uportal-war</artifactId>
+    <version>1-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>uPortal Webapp</name>
+    <description>Overlay on uPortal Webapp.</description>
+    
+    <properties>
+        <uPortal.groupId>org.jasig.portal</uPortal.groupId>
+        <uPortal.artifactId>uportal-war</uPortal.artifactId>
+        
+        <!-- Needed to work nice with the portlet-overlays parent -->
+        <portlet.groupId>${uPortal.groupId}</portlet.groupId>
+        <portlet.artifactId>${uPortal.artifactId}</portlet.artifactId>
+        <portlet.version>${uPortal.version}</portlet.version>
+    </properties>
+    
+    <scm>
+        <developerConnection>scm:git:git@github.com:UW-MultiEnvironment-Build/dev-uportal.git</developerConnection>
+        <connection>scm:git:git://github.com/UW-MultiEnvironment-Build/dev-uportal.git</connection>
+        <url>https://github.com/UW-MultiEnvironment-Build/dev-uportal</url>
+    </scm>
+
+    <!-- TODO point to the local maven repository so the parent pom can be resolved
+    <repositories>
+        <repository>
+            <id>example.com-releases</id>
+            <url>https://example.com/maven/content/repositories/example-releases/</url>
+        </repository>
+    </repositories>
+    -->
+
+    <dependencies>
+        <!-- ===== Compile Time Dependencies ============================== -->
+        <dependency>
+            <groupId>${uPortal.groupId}</groupId>
+            <artifactId>${uPortal.artifactId}</artifactId>
+            <version>${uPortal.version}</version>
+            <type>war</type>
+        </dependency>
+        <!-- classes dep here for jspc complication -->
+        <dependency>
+            <groupId>${uPortal.groupId}</groupId>
+            <artifactId>${uPortal.artifactId}</artifactId>
+            <version>${uPortal.version}</version>
+            <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+        <!-- place any environment specific dependencies here -->
+    </dependencies>
+    
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jasig.mojo.jspc</groupId>
+                <artifactId>jspc-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
